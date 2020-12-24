@@ -97,17 +97,16 @@ function pLine(zip, mission, archive){
             });
             
             rline.on('line',  function(line){
-                // Abort parsing if we his mission quotes for speed
                 if (_map.displayname !== '' & _map.missiontypes !== ''){
                   rline.close();
                   rline.removeAllListeners();
 
                 }else if(line !== '' && line.includes('=') && line.includes('//') ){
-                   // console.log(line);
+                    // console.log(line);
                     // dismiss empty lines
                     line = line.replace('//', '').trim().split('=')
 
-                   // console.log(line[0], line[1]);
+                    // console.log(line[0], line[1]);
 
                     _map[line[0].toLowerCase().trim()] = line[1].toString().trim();
                 }
