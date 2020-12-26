@@ -48,26 +48,29 @@ function processArchives(archive) {
             resolve()
         });
 
-        zip.on('entry', entry => {
+        zip.on('entry', async entry => {
             if (entry.name.startsWith('missions/') && !entry.isDirectory && entry.name.includes('.mis')){
                 console.log(`Entry: ${entry.name}`);
                 missionsList.push(entry.name)
+
+
             };
         });
 
-        zip.on('ready', () => {
+        zip.on('ready', async () => {
             // !! The on Ready event runs **AFTER** all entries have been processed
             console.log(`Ready: ${archive}`);
 
-            missionsList.map( async mission => {
-               // console.log('in map', mission);
-                await pLine(zip, mission, archive)
-            });
-        
-    
-           console.log(`Done: ${archive}`);
-           resolve();
+            for (const mission of missionsList) {
+                await pLine(mission, zip, archive);
+            }
+
+            console.log(`Done: ${archive}`);
+
+            zip.close();
+            resolve();
         });
+
     });
 };         
 
@@ -75,41 +78,47 @@ function processArchives(archive) {
       
 
 
-function pLine(zip, mission, archive){
+async function pLine(mission, zip, archive){
+    
     return new Promise((resolve, reject) => {
-
+   
         zip.stream(mission, (err, stm) => {
             if(err){
                 console.error(archive, mission, err)
             }
 
             let _map = {
-                displayname:'',
+                name: mission.split('\\').pop().split('/').pop(),
+                displayname: '',
                 missiontypes: '',
                 version: 0,
                 filepath: mission,
                 archive: archive
             }
 
-            let rline = readline.createInterface({
+
+            const rline = readline.createInterface({
                 input: stm,
                 terminal: false
             });
             
+
+
             rline.on('line',  function(line){
-                // Abort parsing if we his mission quotes for speed
                 if (_map.displayname !== '' & _map.missiontypes !== ''){
-                  rline.close();
-                  rline.removeAllListeners();
+                    rline.close();
+                    rline.removeAllListeners();
 
                 }else if(line !== '' && line.includes('=') && line.includes('//') ){
-                   // console.log(line);
+                    // console.log(line);
                     // dismiss empty lines
-                    line = line.replace('//', '').trim().split('=')
+                    let parsedLine = line.replace('//', '').trim().split('=');
+                    let key = parsedLine[0].toLowerCase().trim();
+                    let val = parsedLine[1].toString().trim();
 
-                   // console.log(line[0], line[1]);
+                    console.log(key, val);
 
-                    _map[line[0].toLowerCase().trim()] = line[1].toString().trim();
+                    _map[key] = val;
                 }
                 
             });
@@ -117,28 +126,35 @@ function pLine(zip, mission, archive){
 
 
             rline.on('close', () => {
-              //  console.log(_map);
-              localMissionList.push(_map)
-             })
+                // final round of formatting
+                // Use mission name as fallback for display name (may or may not need this -- unsure yet)
+                if(_map.displayname === ''){
+                    _map.displayname = _map.name.replace('.mis','');
+                }
+                // Turn mission types into an array
+                _map.missiontypes = _map.missiontypes.split(' ')
 
-             rline.on('error', err => { 
-               console.error(`[RLINE] Something is strange with this archive: ${archive} - ${err}`);
-             });
- 
- 
-             stm.on('end', () => {
-                zip.close()
+                //  console.log(_map);
+                localMissionList.push(_map);
+
+                // done with this file
                 resolve();
-             });
+            })
 
-             stm.on('error', err => { 
-               console.error(`[STREAM] Something is strange with this archive: ${archive} - ${err}`);
-             });
+            rline.on('error', err => { 
+                console.error(`[RLINE] Something is strange with this archive: ${archive} - ${err}`);
+            });
 
-        });
 
+            stm.on('error', err => { 
+                console.error(`[STREAM] Something is strange with this archive: ${archive} - ${err}`);
+            });
+
+
+
+        });     
     });
-}
+};
 
 
 
