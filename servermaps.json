@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Euro_MuddySwamp.mis",
+        "displayname": "Euro2_Muddy Swamp",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "archive": "Europack2_v111.vl2",
+        "dlpath": "s3 bucket"
+    }
+]
