@@ -84,7 +84,8 @@ function pLine(zip, mission, archive){
             }
 
             let _map = {
-                displayname:'',
+                name: mission.split('\\').pop().split('/').pop(),
+                displayname: '',
                 missiontypes: '',
                 version: 0,
                 filepath: mission,
@@ -116,6 +117,15 @@ function pLine(zip, mission, archive){
 
 
             rline.on('close', () => {
+
+              // final round of formatting
+              // Use mission name as fallback for display name (may or may not need this -- unsure yet)
+              if(_map.displayname === ''){
+                _map.displayname = _map.name.replace('.mis','');
+              }
+              // Turn mission types into an array
+              _map.missiontypes = _map.missiontypes.split(' ')
+
               //  console.log(_map);
               localMissionList.push(_map)
              })
