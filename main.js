@@ -13,7 +13,7 @@ const dirPath = path.resolve(__dirname, 'maps/');
 const vl2ArchiveList = [];
 const localMissionList = [];
 const badArchiveList = [];
-
+const reconcileDLMaps = [];
 
 function compileVl2ArchiveList(GameDataDIR) {
   fs.readdirSync(GameDataDIR).forEach(archive => {
@@ -158,6 +158,28 @@ async function pLine(mission, zip, archive){
 
 
 
+function mapDiffCheck(){
+    console.log('--------');
+    console.log('Checking local map index against servers list');
+    const remoteMapList = require('./servermaps.json');
+
+    // find a list of maps that are out of date
+    const mapVersionCheck = remoteMapList.filter(({ version: id1 }) => !localMissionList.some(({ version: id2 }) => id2 === id1));
+
+    // find a list of maps that the server has but client does not
+    const missingMaps = remoteMapList.filter(({ name: id1 }) => !localMissionList.some(({ name: id2 }) => id2 === id1));
+
+
+    reconcileDLMaps.push({
+        "missing": missingMaps,
+        "stale": mapVersionCheck
+    });
+
+    console.log(JSON.stringify(reconcileDLMaps));
+
+}
+
+
 
 async function main() {
     let perfProfileStart = (new Date()).getTime();
@@ -172,13 +194,17 @@ async function main() {
     let perfProfileEnd = (new Date()).getTime();
     let perfExecutionTime = `${((perfProfileEnd - perfProfileStart)/1000) % 60} seconds`;
 
-    debuglog(perfExecutionTime);
+
+    mapDiffCheck();
+
+  //  debuglog(perfExecutionTime);
 }
   
 
 
 function debuglog(perfExecutionTime){
     // Check to make sure Async IO is respecting promises
+    console.log('[ DEBUG LOG ]');
     console.log('Bad Archives', badArchiveList);
     console.log('Missions', localMissionList);
     console.log('async op complete');
@@ -187,6 +213,9 @@ function debuglog(perfExecutionTime){
     console.log(`Found ${localMissionList.length} missions in ${vl2ArchiveList.length} archives.`);
     console.log(`Found ${badArchiveList.length} bad archives.`);
     console.log(`Total processing time: ${perfExecutionTime}`);
+
+
+
 
   }
 
