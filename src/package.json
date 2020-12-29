@@ -1,0 +1,19 @@
+{
+  "name": "t2-map-manager",
+  "productName": "t2-map-manager",
+  "version": "0.0.1",
+  "description": "Tribes 2 Map Manager and game launcher. Used to automatically sync server side maps locally.",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Anthony Mineo",
+    "email": "anthonymineo@gmail.com",
+    "url": "https://anthonymineo.com"
+  },
+  "contributors": [],
+  "scripts": {
+    "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
