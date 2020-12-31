@@ -8,6 +8,9 @@ import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
+const tailwindcss = require('tailwindcss');
+const autoprefixer =  require('autoprefixer');
+
 // When an ESLint server is running, we can't set the NODE_ENV so we'll check if it's
 // at the dev webpack config is not accidentally run in a production environment
 if (process.env.NODE_ENV === 'production') {
@@ -72,16 +75,25 @@ export default merge(baseConfig, {
         test: /\.global\.css$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: 'style-loader'
           },
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
-        ],
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [tailwindcss, autoprefixer]
+              }
+            }
+          }
+        ]
       },
+
       {
         test: /^((?!\.global).)*\.css$/,
         use: [

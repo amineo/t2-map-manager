@@ -1,0 +1,86 @@
+[
+    {
+        "name": "Acid Rain.mis",
+        "displayname": "Acid Rain",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "filepath": "missions/Acid Rain.mis",
+        "archive": "AcidRain.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    },
+    {
+        "name": "BaNsHee.mis",
+        "displayname": "BaNsHee",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 1,
+        "filepath": "missions/BaNsHee.mis",
+        "archive": "BaNsHee.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    },
+    {
+        "name": "Bad day at BlackRock.mis",
+        "displayname": "Bad day at BlackRock",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "filepath": "missions/Bad day at BlackRock.mis",
+        "archive": "BaddayatBlackRock.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    },
+    {
+        "name": "badlands1.mis",
+        "displayname": "Badlands",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "filepath": "missions/badlands1.mis",
+        "archive": "Badlands.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    },
+    {
+        "name": "Badlands Winter.mis",
+        "displayname": "Badlands Winter",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "filepath": "missions/Badlands Winter.mis",
+        "archive": "BadlandsWinter.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    },
+    {
+        "name": "Badlands Winter.mis",
+        "displayname": "Badlands Winter",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "filepath": "missions/Badlands Winter.mis",
+        "archive": "BadlandsWinter.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    },
+    {
+        "name": "Highest Small Octaine Crossing.mis",
+        "displayname": "Highest Small Octaine Crossing",
+        "missiontypes": [
+            "CTF"
+        ],
+        "version": 0,
+        "filepath": "missions/Highest Small Octaine Crossing.mis",
+        "archive": "HSOC.vl2",
+        "dlpath": "s3 bucket",
+        "hash": ""
+    }
+]
