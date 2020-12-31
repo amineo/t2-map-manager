@@ -1,5 +1,7 @@
 /* This file generates app.gen.css  */
 
+@import url('https://rsms.me/inter/inter.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

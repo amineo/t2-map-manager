@@ -13,6 +13,9 @@ import baseConfig from './webpack.config.base';
 import CheckNodeEnv from '../scripts/CheckNodeEnv';
 import DeleteSourceMaps from '../scripts/DeleteSourceMaps';
 
+const tailwindcss = require('tailwindcss');
+const autoprefixer =  require('autoprefixer');
+
 CheckNodeEnv('production');
 DeleteSourceMaps();
 
@@ -54,6 +57,14 @@ export default merge(baseConfig, {
               sourceMap: true,
             },
           },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [tailwindcss, autoprefixer]
+              }
+            }
+          }
         ],
       },
       // Pipe other styles through css modules and append to style.css
