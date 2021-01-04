@@ -66,7 +66,7 @@ const createWindow = async () => {
   const getAssetPath = (...paths: string[]): string => {
     return path.join(RESOURCES_PATH, ...paths);
   };
-
+  console.log(process.platform );
   mainWindow = new BrowserWindow({
     show: false,
     frame: true,
@@ -75,9 +75,9 @@ const createWindow = async () => {
     minWidth: 1024,
     minHeight: 728,
     darkTheme: true,
-    icon: getAssetPath("icon.png"),
-    backgroundColor: "#1f2937",
-    titleBarStyle: "hiddenInset",
+    icon: getAssetPath('icon.png'),
+    backgroundColor: '#1f2937',
+    titleBarStyle:  process.platform === 'darwin' ?  'default' : 'hiddenInset',
     webPreferences: {
       nodeIntegration: true,
     },
