@@ -16,7 +16,10 @@ const dirPath = path.resolve(__dirname, 'maps/');
 const vl2ArchiveList = [];
 const localMissionList = [];
 const badArchiveList = [];
-const reconcileDLMaps = [];
+const reconcileDLMaps = {
+  missing: [],
+  stale: []
+};
 
 function compileVl2ArchiveList(GameDataDIR) {
   fs.readdirSync(GameDataDIR).forEach(archive => {
@@ -170,14 +173,9 @@ function mapDiffCheck(){
     // find a list of maps that the server has but client does not
     const missingMaps = remoteMapList.filter(({ name: id1 }) => !localMissionList.some(({ name: id2 }) => id2 === id1));
 
-
-    reconcileDLMaps.push({
-        "missing": missingMaps,
-        "stale": mapVersionCheck
-    });
-
+    reconcileDLMaps.missing.push(missingMaps);
+    reconcileDLMaps.stale.push(mapVersionCheck);
    // console.log(JSON.stringify(reconcileDLMaps));
-
 }
 
 function debuglog(perfExecutionTime){
