@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState }  from "react";
+import React, { useContext}  from "react";
 import SyncMapList from "../components/SyncMapList";
 import SyncStatus from "../components/SyncStatus";
 
@@ -6,13 +6,13 @@ import { MapContext } from '../contexts/MapContext';
 // import { MapCheck } from '../utils/MapCheck';
 
 
-type Props = {
-  title: string,
-  children?: JSX.Element | JSX.Element[];
-}
+// type Props = {
+//   title: string,
+//   children?: JSX.Element | JSX.Element[];
+// }
 
 
-export default function MapSyncPage ({children}: Props){
+export default function MapSyncPage (){
   const mapContext = useContext(MapContext);
 
 

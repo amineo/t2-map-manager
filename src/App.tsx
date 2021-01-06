@@ -15,7 +15,7 @@ export default function App() {
           <Switch>
 
             <Route path="/">
-              <MapSyncPage title="Home" />
+              <MapSyncPage />
             </Route>
 
           </Switch>

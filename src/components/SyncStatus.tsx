@@ -1,15 +1,7 @@
 import React from "react";
 
 
-type Props = {
-  missing?: any[],
-  stale?: any[]
-}
-
-
-export default function SyncStatus({missing, stale}: Props){
-
-
+export default function SyncStatus(){
 
   return(
     <div className="px-4 mt-6 sm:px-6 lg:px-8">
