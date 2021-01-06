@@ -1,6 +1,16 @@
 import React from "react";
 
-export default function SyncStatus(){
+
+type Props = {
+  missing?: any[],
+  stale?: any[]
+}
+
+
+export default function SyncStatus({missing, stale}: Props){
+
+
+
   return(
     <div className="px-4 mt-6 sm:px-6 lg:px-8">
     <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
@@ -9,7 +19,7 @@ export default function SyncStatus(){
     <ul className="grid grid-cols-1 gap-3 sm:gap-6 sm:grid-cols-4 xl:grid-cols-4 mt-3">
       <li className="relative col-span-1 flex shadow-sm rounded-md">
         <div className="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-lg font-medium rounded-l-md">
-          3
+          {/* {mapDiff[0].missing.length} */}
         </div>
         <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
           <div className="flex-1 px-4 py-2 text-sm truncate">

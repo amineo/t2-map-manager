@@ -10,6 +10,9 @@ const StreamZip = require('node-stream-zip');
 
 
 const dirPath = path.resolve(__dirname, 'maps/');
+
+
+
 const vl2ArchiveList = [];
 const localMissionList = [];
 const badArchiveList = [];
@@ -50,22 +53,20 @@ function processArchives(archive) {
 
         zip.on('entry', async entry => {
             if (entry.name.startsWith('missions/') && !entry.isDirectory && entry.name.includes('.mis')){
-                console.log(`Entry: ${entry.name}`);
+                //console.log(`Entry: ${entry.name}`);
                 missionsList.push(entry.name)
-
-
             };
         });
 
         zip.on('ready', async () => {
             // !! The on Ready event runs **AFTER** all entries have been processed
-            console.log(`Ready: ${archive}`);
+            //console.log(`Ready: ${archive}`);
 
             for (const mission of missionsList) {
                 await pLine(mission, zip, archive);
             }
 
-            console.log(`Done: ${archive}`);
+            //console.log(`Done: ${archive}`);
 
             zip.close();
             resolve();
@@ -116,7 +117,7 @@ async function pLine(mission, zip, archive){
                     let key = parsedLine[0].toLowerCase().trim();
                     let val = parsedLine[1].toString().trim();
 
-                    console.log(key, val);
+                    //console.log(key, val);
 
                     _map[key] = val;
                 }
@@ -159,8 +160,8 @@ async function pLine(mission, zip, archive){
 
 
 function mapDiffCheck(){
-    console.log('--------');
-    console.log('Checking local map index against servers list');
+    // console.log('--------');
+    // console.log('Checking local map index against servers list');
     const remoteMapList = require('./servermaps.json');
 
     // find a list of maps that are out of date
@@ -175,7 +176,7 @@ function mapDiffCheck(){
         "stale": mapVersionCheck
     });
 
-    console.log(JSON.stringify(reconcileDLMaps));
+   // console.log(JSON.stringify(reconcileDLMaps));
 
 }
 
@@ -196,10 +197,16 @@ function debuglog(perfExecutionTime){
 
 export async function MapCheck() {
 
+    // Clean
+    vl2ArchiveList.length = 0;
+    localMissionList.length = 0;
+    badArchiveList.length = 0;
+    reconcileDLMaps.length = 0;
+
     //let perfProfileStart = (new Date()).getTime();
 
     await compileVl2ArchiveList(dirPath);
-    console.log('Archives Found', vl2ArchiveList);
+   // console.log('Archives Found', vl2ArchiveList);
 
     for (const archive of vl2ArchiveList) {
         await processArchives(archive)
@@ -213,7 +220,6 @@ export async function MapCheck() {
 
     //  debuglog(perfExecutionTime);
 
-    console.log('returning');
     return {
       badArchiveList,
       localMissionList,

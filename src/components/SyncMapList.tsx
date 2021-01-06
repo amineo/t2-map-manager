@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function SyncMapList () {
+
+
   return (
 
     <div className="mt-8 sm:block">
