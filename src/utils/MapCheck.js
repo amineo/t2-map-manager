@@ -173,8 +173,8 @@ function mapDiffCheck(){
     // find a list of maps that the server has but client does not
     const missingMaps = remoteMapList.filter(({ name: id1 }) => !localMissionList.some(({ name: id2 }) => id2 === id1));
 
-    reconcileDLMaps.missing.push(missingMaps);
-    reconcileDLMaps.stale.push(mapVersionCheck);
+    reconcileDLMaps.missing.push(...missingMaps);
+    reconcileDLMaps.stale.push(...mapVersionCheck);
    // console.log(JSON.stringify(reconcileDLMaps));
 }
 
@@ -222,7 +222,8 @@ export async function MapCheck() {
       badArchiveList,
       localMissionList,
       vl2ArchiveList,
-      reconcileDLMaps
+      reconcileDLMaps,
+      isLoading: false
     };
 
 };

@@ -6,7 +6,7 @@ const MapContext = createContext({});
 const { Provider } = MapContext;
 
 const MapProvider: React.FC = ({children}) => {
-  const [maps, setMaps]: any[] = useState({});
+  const [maps, setMaps]: any[] = useState({isLoading:true});
 
 	const runMapCheck = useCallback(
 		async () => {

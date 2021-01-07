@@ -11,9 +11,19 @@ import { MapContext } from '../contexts/MapContext';
 //   children?: JSX.Element | JSX.Element[];
 // }
 
+type MC = {
+  badArchiveList?: string[],
+  localMissionList?: any[],
+  reconcileDLMaps?: {
+    missing: any[],
+    stale: any[]
+  },
+  vl2ArchiveList?: string[],
+  isLoading: boolean
+}
 
 export default function MapSyncPage (){
-  const mapContext = useContext(MapContext);
+  const mapContext = useContext<MC>(MapContext);
 
 
   console.log(mapContext);
@@ -24,8 +34,13 @@ export default function MapSyncPage (){
       className="flex-1 relative z-0 overflow-y-auto focus:outline-none"
       tabIndex={-1}
     >
-      <SyncStatus />
-      <SyncMapList />
+      { mapContext.isLoading ?
+        <div>Loading</div>
+      : <>
+        <SyncStatus conflicts={mapContext.reconcileDLMaps}/>
+        <SyncMapList />
+      </>
+     }
     </main>
   );
 };
