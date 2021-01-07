@@ -1,6 +1,7 @@
 import React, { useContext}  from "react";
 import SyncMapList from "../components/SyncMapList";
 import SyncStatus from "../components/SyncStatus";
+import LocalMapList from "../components/LocalMapList";
 
 import { MapContext } from '../contexts/MapContext';
 // import { MapCheck } from '../utils/MapCheck';
@@ -14,10 +15,9 @@ import { MapContext } from '../contexts/MapContext';
 type MC = {
   badArchiveList?: string[],
   localMissionList?: any[],
-  reconcileDLMaps?: {
-    missing: any[],
-    stale: any[],
-    unique: any[]
+  mapDiffs?: {
+    conflicts: any[],
+    archives: any[]
   },
   vl2ArchiveList?: string[],
   isLoading: boolean
@@ -38,8 +38,9 @@ export default function MapSyncPage (){
       { mapContext.isLoading ?
         <div>Loading</div>
       : <>
-        <SyncStatus conflicts={mapContext.reconcileDLMaps}/>
-        <SyncMapList />
+        <SyncStatus maps={mapContext.mapDiffs}/>
+        <SyncMapList maps={mapContext.mapDiffs}/>
+        <LocalMapList localMissionList={mapContext.localMissionList}/>
       </>
      }
     </main>

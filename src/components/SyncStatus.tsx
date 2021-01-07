@@ -1,14 +1,11 @@
 import React, {useContext} from "react";
 
 type Props = {
-  reconcileDLMaps?: {
-    missing: any[],
-    stale: any[],
-    unique: any[]
-  }
+    conflicts: any[],
+    archives: any[]
 }
 
-export default function SyncStatus({conflicts}): Props {
+export default function SyncStatus({maps}): Props {
   return (
   <div className="px-4 mt-6 sm:px-6 lg:px-8">
     <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
@@ -17,7 +14,7 @@ export default function SyncStatus({conflicts}): Props {
     <ul className="grid grid-cols-1 gap-3 sm:gap-6 sm:grid-cols-4 xl:grid-cols-4 mt-3">
       <li className="relative col-span-1 flex shadow-sm rounded-md">
         <div className="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-lg font-medium rounded-l-md">
-          {conflicts.missing.length}
+          {maps.conflicts.reduce((a, o) => (o.status === "missing" && a.push(o.value), a), []).length }
         </div>
         <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
           <div className="flex-1 px-4 py-2 text-sm truncate">
@@ -31,7 +28,7 @@ export default function SyncStatus({conflicts}): Props {
       </li>
       <li className="relative col-span-1 flex shadow-sm rounded-md">
         <div className="flex-shrink-0 flex items-center justify-center w-16 bg-yellow-500 text-white text-lg font-medium rounded-l-md">
-        {conflicts.stale.length}
+          {maps.conflicts.reduce((a, o) => (o.status === "stale" && a.push(o.value), a), []).length }
         </div>
         <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
           <div className="flex-1 px-4 py-2 text-sm truncate">
@@ -66,7 +63,7 @@ export default function SyncStatus({conflicts}): Props {
       </li>
       <li className="relative col-span-1 flex shadow-sm rounded-md">
         <div className="flex-shrink-0 flex items-center justify-center w-16 bg-purple-500 text-white text-lg font-medium rounded-l-md">
-          {conflicts.unique.length}
+          {maps.archives.length}
         </div>
         <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md ">
           <div className="flex-1 px-4 py-2 text-sm truncate">

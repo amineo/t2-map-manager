@@ -16,10 +16,9 @@ const dirPath = path.resolve(__dirname, 'maps/');
 const vl2ArchiveList = [];
 const localMissionList = [];
 const badArchiveList = [];
-const reconcileDLMaps = {
-  missing: [],
-  stale: [],
-  unique: []
+const mapDiffs = {
+    conflicts: [],
+    archives: []
 };
 
 function compileVl2ArchiveList(GameDataDIR) {
@@ -168,19 +167,37 @@ function mapDiffCheck(){
     // console.log('Checking local map index against servers list');
     const remoteMapList = require('./servermaps.json');
 
-    // find a list of maps that are out of date
-    const mapVersionCheck = remoteMapList.filter(({ version: id1 }) => !localMissionList.some(({ version: id2 }) => id2 === id1));
-    reconcileDLMaps.stale.push(...mapVersionCheck);
 
     // find a list of maps that the server has but client does not
-    const missingMaps = remoteMapList.filter(({ name: id1 }) => !localMissionList.some(({ name: id2 }) => id2 === id1));
-    reconcileDLMaps.missing.push(...missingMaps);
+    const missingMaps = remoteMapList.filter(({ name: n1 }) => 
+        !localMissionList.some(({ name: n2 }) => {
+            return n2 === n1
+        }
+    )).map(m => ({...m, status: "missing" }))
+
+
+
+    // find a list of maps that are out of date
+    const mapVersionCheck = remoteMapList.filter(({ version: v1 }) =>
+        !localMissionList.some(({ version: v2 }) => {
+            return v2 === v1
+        })
+    ).filter( x => !missingMaps.filter( y => y.name === x.name).length ).map(m => ({...m, status: "stale" }))
+
+
+    mapDiffs.conflicts.push(...missingMaps, ...mapVersionCheck);
+
+
+
+    // TODO: Check conflict list against Bad Archive list and update status to 'error'
+    // Map -> BaNsHee is a b0rked archive so we should use to test against
+
 
     // filter list of unique archives needed to be downloaded
-    const uniqueArchives = [...reconcileDLMaps.missing, ...reconcileDLMaps.stale].filter((v,i,a) => a.findIndex(t => (t.archive === v.archive)) === i);
-    reconcileDLMaps.unique.push(...uniqueArchives);
+    const uniqueArchives = mapDiffs.conflicts.filter((v,i,a) => a.findIndex(t => (t.archive === v.archive)) === i);
+    mapDiffs.archives.push(...uniqueArchives);
 
-   // console.log(JSON.stringify(reconcileDLMaps));
+   // console.log(JSON.stringify(mapDiffs));
 }
 
 function debuglog(perfExecutionTime){
@@ -204,7 +221,8 @@ export async function MapCheck() {
     vl2ArchiveList.length = 0;
     localMissionList.length = 0;
     badArchiveList.length = 0;
-    reconcileDLMaps.length = 0;
+    mapDiffs.conflicts.length = 0;
+    mapDiffs.archives.length = 0;
 
     //let perfProfileStart = (new Date()).getTime();
 
@@ -227,7 +245,7 @@ export async function MapCheck() {
       badArchiveList,
       localMissionList,
       vl2ArchiveList,
-      reconcileDLMaps,
+      mapDiffs,
       isLoading: false
     };
 

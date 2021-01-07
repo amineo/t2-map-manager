@@ -5,7 +5,7 @@
         "missiontypes": [
             "CTF"
         ],
-        "version": 0,
+        "version": 1,
         "filepath": "missions/Acid Rain.mis",
         "archive": "AcidRain.vl2",
         "dlpath": "s3 bucket",
@@ -77,7 +77,7 @@
         "missiontypes": [
             "CTF"
         ],
-        "version": 0,
+        "version": 1,
         "filepath": "missions/Highest Small Octaine Crossing.mis",
         "archive": "HSOC.vl2",
         "dlpath": "s3 bucket",
