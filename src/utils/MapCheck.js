@@ -18,7 +18,8 @@ const localMissionList = [];
 const badArchiveList = [];
 const reconcileDLMaps = {
   missing: [],
-  stale: []
+  stale: [],
+  unique: []
 };
 
 function compileVl2ArchiveList(GameDataDIR) {
@@ -169,12 +170,16 @@ function mapDiffCheck(){
 
     // find a list of maps that are out of date
     const mapVersionCheck = remoteMapList.filter(({ version: id1 }) => !localMissionList.some(({ version: id2 }) => id2 === id1));
+    reconcileDLMaps.stale.push(...mapVersionCheck);
 
     // find a list of maps that the server has but client does not
     const missingMaps = remoteMapList.filter(({ name: id1 }) => !localMissionList.some(({ name: id2 }) => id2 === id1));
-
     reconcileDLMaps.missing.push(...missingMaps);
-    reconcileDLMaps.stale.push(...mapVersionCheck);
+
+    // filter list of unique archives needed to be downloaded
+    const uniqueArchives = [...reconcileDLMaps.missing, ...reconcileDLMaps.stale].filter((v,i,a) => a.findIndex(t => (t.archive === v.archive)) === i);
+    reconcileDLMaps.unique.push(...uniqueArchives);
+
    // console.log(JSON.stringify(reconcileDLMaps));
 }
 

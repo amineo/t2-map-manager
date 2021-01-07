@@ -16,7 +16,8 @@ type MC = {
   localMissionList?: any[],
   reconcileDLMaps?: {
     missing: any[],
-    stale: any[]
+    stale: any[],
+    unique: any[]
   },
   vl2ArchiveList?: string[],
   isLoading: boolean

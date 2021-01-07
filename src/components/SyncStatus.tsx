@@ -3,7 +3,8 @@ import React, {useContext} from "react";
 type Props = {
   reconcileDLMaps?: {
     missing: any[],
-    stale: any[]
+    stale: any[],
+    unique: any[]
   }
 }
 
@@ -65,7 +66,7 @@ export default function SyncStatus({conflicts}): Props {
       </li>
       <li className="relative col-span-1 flex shadow-sm rounded-md">
         <div className="flex-shrink-0 flex items-center justify-center w-16 bg-purple-500 text-white text-lg font-medium rounded-l-md">
-          CALC unique
+          {conflicts.unique.length}
         </div>
         <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md ">
           <div className="flex-1 px-4 py-2 text-sm truncate">
