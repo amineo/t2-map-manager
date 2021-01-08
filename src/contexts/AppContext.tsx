@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext } from 'react';
 const Store = require('electron-store');
  
 
