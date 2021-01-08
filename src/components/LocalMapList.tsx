@@ -25,10 +25,15 @@ const MapRow = ({map}) => {
       </div>
     </td>
     <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-400 text-right">
-        <span className="flex-shrink-0 text-xs leading-5 font-medium">
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500">
           v{map.version}
         </span>
     </td>
+    <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-md text-green-500 text-right">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+    </td>    
     <td className="pr-6">
       <div className="relative flex justify-end items-center">
         <button
@@ -37,7 +42,6 @@ const MapRow = ({map}) => {
         >
           <svg
             className="w-5 h-5"
-            data-todo-x-description="Heroicon name: dots-vertical"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -73,8 +77,9 @@ export default function LocalMapList({localMissionList}) {
                     .Vl2
                     </th>
                     <th className="md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    
                     </th>
+                    <th className="md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    </th>                    
                     <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                 </tr>
                 </thead>

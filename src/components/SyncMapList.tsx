@@ -28,7 +28,7 @@ const MapRow = ({map}) => {
     </td>
     <td className="px-6 py-3 text-sm text-gray-400 font-medium">
       <div className="flex items-center space-x-2">
-        <span className="flex-shrink-0 text-xs leading-5 font-medium">
+        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500">
           v{map.version}
         </span>
       </div>
@@ -74,8 +74,8 @@ export default function SyncMapList({maps}) {
       <table className="min-w-full">
         <thead>
           <tr className="border-t border-gray-200">
-            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              <span className="lg:pl-2">Map</span>
+            <th className="w70 px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <span className="lg:pl-2">Map Conflicts</span>
             </th>
             <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               .Vl2
