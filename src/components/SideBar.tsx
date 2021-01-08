@@ -1,10 +1,12 @@
 import React from "react";
 
+import {NavLink} from 'react-router-dom';
+
+
 export default function SideBar() {
   return (
     <div className="flex flex-shrink-0">
     <div className="flex flex-col w-64">
-      {/* Sidebar component, swap this element with another sidebar if you like */}
       <div className="flex flex-col h-0 flex-1">
         <div className="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900 text-white">
           <img
@@ -18,9 +20,11 @@ export default function SideBar() {
           <nav className="flex-1 px-2 py-4 bg-gray-800">
             <div className="space-y-1">
               {/* Current: "bg-gray-200 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" */}
-              <a
-                href="/"
-                className="bg-gray-900 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+              <NavLink
+                to="/"
+                exact
+                activeClassName="bg-gray-900"
+                className=" hover:bg-gray-700 text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md "
               >
                 {/* Current: "text-gray-300", Default: "text-gray-400 group-hover:text-gray-300" */}
                 {/* Heroicon name: home */}
@@ -40,19 +44,22 @@ export default function SideBar() {
                   />
                 </svg>
                 Home
-              </a>
+              </NavLink>
+              
+
             </div>
             <div className="mt-10">
               <p className="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">
                 Settings
               </p>
               <div className="mt-2 space-y-1">
-                <a
-                  href="/"
+                <NavLink
+                  to="/settings"
+                  activeClassName="bg-gray-900"
                   className="group flex items-center px-3 py-2 text-sm font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700"
                 >
                   <span className="truncate">Tribes 2</span>
-                </a>
+                </NavLink>
               </div>
             </div>
           </nav>

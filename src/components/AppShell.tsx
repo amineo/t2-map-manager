@@ -12,11 +12,9 @@ export default function AppShell ({children}: Props){
   return (
   <div className="h-screen flex overflow-hidden bg-white">
     <SideBar/>
-  <div className="flex flex-col w-0 flex-1 overflow-hidden">
-
-    { children }
-
-    <GameLauncher />
+    <div className="flex flex-col w-0 flex-1 overflow-hidden">
+      { children }
+      <GameLauncher />
   </div>
 </div>
 )};

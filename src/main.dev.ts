@@ -80,6 +80,7 @@ const createWindow = async () => {
     titleBarStyle:  process.platform === 'darwin' ?  'default' : 'hiddenInset',
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true
     },
   });
 
