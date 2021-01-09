@@ -1,7 +1,7 @@
-import React from 'react';
+//import React from 'react';
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
-import App from '../App';
+// import { render } from '@testing-library/react';
+// import App from '../App';
 
 // bug with current electron and render returning undefined
 // https://github.com/sindresorhus/electron-is-dev/issues/20
