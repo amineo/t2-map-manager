@@ -1,10 +1,10 @@
 import React from "react";
+import {IMap, IMapDetail, IMapSyncConflicts} from "../types";
 
-
-const MapRow = ({map}) => {
+const MapRow = ({map}: IMap) => {
 
   let typeColor = (map.status === "missing") ? "pink" : "yellow";
-  
+
   return (
     <tr key={map.name}>
     <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
@@ -65,7 +65,7 @@ const MapRow = ({map}) => {
 
 
 
-export default function SyncMapList({maps}) {
+export default function SyncMapList({conflicts}: IMapSyncConflicts) {
 
   return (
 
@@ -89,7 +89,7 @@ export default function SyncMapList({maps}) {
         </thead>
         <tbody className="bg-white divide-y divide-gray-100">
           {
-            maps.conflicts.map( (map, i) =>  <MapRow key={`${i}_${map.name}`} map={map}/>)
+            conflicts.map( (map:IMapDetail, i:number) => <MapRow key={`${i}_${map.name}`} map={map}/>)
           }
         </tbody>
       </table>

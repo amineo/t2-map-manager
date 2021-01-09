@@ -1,17 +1,11 @@
 import React, { useContext}  from "react";
+import {IAppContext} from "../types";
+
 import { AppContext } from '../contexts/AppContext';
 
 
-type AC = {
-    config: {
-        gamePath: string,
-        gameArgs: string
-    }
-  }
-
 export default function SettingsPage (){
-
-    const appContext = useContext<AC>(AppContext);
+    const appContext: IAppContext = useContext<any>(AppContext);
     console.log(appContext);
 
     return (
@@ -28,7 +22,7 @@ export default function SettingsPage (){
            
                     <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4">
                         <div className="sm:col-span-4">
-                            <label for="username" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="gamepath" className="block text-sm font-medium text-gray-700">
                                 Game Path
                             </label>
                             <div className="mt-1 flex rounded-md shadow-sm">
@@ -39,7 +33,7 @@ export default function SettingsPage (){
 
                     <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 ">
                         <div className="sm:col-span-4">
-                            <label for="username" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="arguments" className="block text-sm font-medium text-gray-700">
                                 Arguments
                             </label>
                             <div className="mt-1 flex rounded-md shadow-sm">

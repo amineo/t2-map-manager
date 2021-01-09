@@ -1,7 +1,9 @@
 import React from "react";
 
+import {IMap} from "../types";
 
-const MapRow = ({map}) => {
+
+const MapRow = ({map}: IMap) => {
  // console.log(map);
   return (
     <tr>
@@ -33,7 +35,7 @@ const MapRow = ({map}) => {
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
-    </td>    
+    </td>
     <td className="pr-6">
       <div className="relative flex justify-end items-center">
         <button
@@ -60,35 +62,32 @@ const MapRow = ({map}) => {
 
 
 
-export default function LocalMapList({localMissionList}) {
+export default function LocalMapList({localMissionList}: any) {
 
   return (
-
     <div className="mt-12 sm:block">
-      
-        <div className="align-middle inline-block min-w-full border-b border-gray-200">
-            <table className="min-w-full">
-                <thead>
-                <tr className="border-t border-gray-200">
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <span className="lg:pl-2">Local Maps</span>
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    .Vl2
-                    </th>
-                    <th className="md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    </th>
-                    <th className="md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    </th>                    
-                    <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-100">
-                    { localMissionList.map( (map,i) =>  <MapRow key={`${i}_${map.name}`} map={map}/>)}
-                </tbody>
-            </table>
-        </div>
-  </div>
-
+      <div className="align-middle inline-block min-w-full border-b border-gray-200">
+        <table className="min-w-full">
+          <thead>
+            <tr className="border-t border-gray-200">
+              <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <span className="lg:pl-2">Local Maps</span>
+              </th>
+              <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                .Vl2
+              </th>
+              <th className="md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
+              <th className="md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
+              <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-100">
+            { 
+              localMissionList.map( (map:any, i: number) =>  <MapRow key={`${i}_${map.name}`} map={map}/>)
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
