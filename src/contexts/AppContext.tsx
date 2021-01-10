@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 const Store = require('electron-store');
 
-const defaults = {
+export const defaults = {
 	config: {
 		gamePath: 'C:/Dynamix/Tribes2',
 		gameArgs: '-online'

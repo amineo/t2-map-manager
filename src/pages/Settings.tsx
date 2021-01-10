@@ -9,7 +9,7 @@ export default function SettingsPage() {
 	const appContext: IAppContext = useContext<any>(AppContext);
 	console.log(appContext);
 
-	const { register, handleSubmit, reset, errors } = useForm({
+	const { register, handleSubmit, reset, errors } = useForm<any>({
 		defaultValues: { ...defaults }
 	});
 
