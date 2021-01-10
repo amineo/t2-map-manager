@@ -53,4 +53,5 @@ npm-debug.log.*
 _orig/
 _maps/
 notes.md
+TODO.md
 workbench.js
