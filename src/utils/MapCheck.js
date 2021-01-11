@@ -3,13 +3,15 @@ const path = require('path');
 const readline = require('readline');
 const StreamZip = require('node-stream-zip');
 
+const fetch = require('node-fetch');
+
 // .mis file vars
 // DisplayName = The Map Name
 // MissionTypes = CTF
 // Version = 1
 
 
-const dirPath = path.resolve(__dirname, 'maps/');
+
 
 
 
@@ -162,14 +164,27 @@ async function pLine(mission, zip, archive){
 
 
 
-function mapDiffCheck(){
+async function mapDiffCheck(){
     // console.log('--------');
     // console.log('Checking local map index against servers list');
-    const remoteMapList = require('./servermaps.json');
+const remoteMapList = require('./servermaps.json');
+
+    const tempURL = 'https://enhkh9rit8f53ir.m.pipedream.net';
+
+
+    // const remoteMapList = async url => {
+    //   try {
+    //     const response = await fetch(url);
+    //     const json = await response.json();
+    //     console.log(json);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
 
 
     // find a list of maps that the server has but client does not
-    const missingMaps = remoteMapList.filter(({ name: n1 }) => 
+    const missingMaps = remoteMapList.filter(({ name: n1 }) =>
         !localMissionList.some(({ name: n2 }) => {
             return n2 === n1
         }
@@ -215,7 +230,10 @@ function debuglog(perfExecutionTime){
 
 
 
-export async function MapCheck() {
+export async function MapCheck(gamePath) {
+
+  // 'maps/' (For local testing folder )
+  const dirPath = path.resolve(__dirname, gamePath);
 
     // Clean
     vl2ArchiveList.length = 0;

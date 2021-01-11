@@ -8,9 +8,18 @@ import { delimiter, dirname, isAbsolute, join, resolve } from "path";
 import { pipeline } from "stream";
 import { promisify } from "util";
 
-export async function LaunchGame() {
-  const game = spawn("C:/Dynamix/Tribes2/GameData/SierraUp.exe", {
-    cwd: "C:/Dynamix/Tribes2/GameData",
+export async function LaunchGame(config) {
+
+  console.log('launchConfig', config);
+  // path: "C:/Dynamix/Tribes2/GameData/SierraUp.exe"
+  // cwd: C:/Dynamix/Tribes2/GameData
+
+
+  let gameExe = '/SierraUp.exe'
+  let gameDataDIR = `${config.gamePath}/GameData`
+
+  const game = spawn(gameDataDIR + gameExe, [config.gameArgs], {
+    cwd: gameDataDIR,
   });
 
   game.stdout.on("data", (data) => {

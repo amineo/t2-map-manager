@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { IAppContext } from '../types';
-
 import { AppContext, defaults } from '../contexts/AppContext';
 
 export default function SettingsPage() {
@@ -19,7 +18,6 @@ export default function SettingsPage() {
 			gameArgs: cfg.gameArgs
 		});
 	};
-
 	const resetToDefaults = () => {
 		reset({ ...defaults });
 		appContext.resetData();
