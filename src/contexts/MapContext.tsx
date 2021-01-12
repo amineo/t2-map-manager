@@ -12,6 +12,8 @@ const MapProvider: React.FC = ({ children }) => {
 	const appContext: IAppContext = useContext<any>(AppContext);
 	const [ maps, setMaps ]: any[] = useState({ isLoading: true });
 
+	console.log('mapcontext calling appContext', appContext);
+
 	const runMapCheck = useCallback(
 		async () => {
 			try {

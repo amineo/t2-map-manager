@@ -12,21 +12,27 @@ const _Store = new Store(defaults);
 const AppContext = createContext({});
 const { Provider } = AppContext;
 //reset to defaults: _Store.reset('config')
-_Store.reset('config');
+//_Store.reset('config');
 const AppProvider: React.FC = ({ children }) => {
 	// Need to set config as state here so appContext refreshes
-	const [ config, setConfig ] = useState({});
+	const [ config, setConfig ] = useState({ config: _Store.get('config') });
 
-	const getStoredConfig: any = useCallback(() => {
-		console.log('callback');
-		setConfig({ config: _Store.get('config') });
-		console.log(config);
-	}, []);
+	// const getStoredConfig: any = useCallback(
+	// 	() => {
+	// 		console.log('callback');
+	// 		setConfig({ config: _Store.get('config') });
+	// 		console.log(config);
+	// 	},
+	// 	[ _Store ]
+	// );
 
-	useEffect(() => {
-		console.log('effect');
-		getStoredConfig();
-	}, []);
+	// useEffect(
+	// 	() => {
+	// 		console.log('effect');
+	// 		getStoredConfig();
+	// 	},
+	// 	[ getStoredConfig ]
+	// );
 
 	const _saveData = (data: any) => {
 		console.log('Saving data');
