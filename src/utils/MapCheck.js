@@ -165,22 +165,27 @@ async function pLine(mission, zip, archive){
 
 
 async function mapDiffCheck(){
-    // console.log('--------');
-    // console.log('Checking local map index against servers list');
-const remoteMapList = require('./servermaps.json');
+  // console.log('--------');
+  // console.log('Checking local map index against servers list');
+  // const remoteMapList = require('./servermaps.json');
 
-    const tempURL = 'https://enhkh9rit8f53ir.m.pipedream.net';
+  const endpoint = 'https://enhkh9rit8f53ir.m.pipedream.net';
 
+  try {
 
-    // const remoteMapList = async url => {
-    //   try {
-    //     const response = await fetch(url);
-    //     const json = await response.json();
-    //     console.log(json);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+    const callRemoteMapAPI = async url => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        return json.serverMaps
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const remoteMapList = await callRemoteMapAPI(endpoint);
+
+    console.log('remoteMapList', remoteMapList);
 
 
     // find a list of maps that the server has but client does not
@@ -213,6 +218,10 @@ const remoteMapList = require('./servermaps.json');
     mapDiffs.archives.push(...uniqueArchives);
 
    // console.log(JSON.stringify(mapDiffs));
+
+  } catch {
+    console.error('Error running mapDiffCheck');
+  }
 }
 
 function debuglog(perfExecutionTime){
@@ -231,7 +240,7 @@ function debuglog(perfExecutionTime){
 
 
 export async function MapCheck(gamePath) {
-
+  console.log('MapCheck GamePath', gamePath);
   // 'maps/' (For local testing folder )
   const dirPath = path.resolve(__dirname, gamePath);
 
@@ -255,7 +264,7 @@ export async function MapCheck(gamePath) {
     // let perfExecutionTime = `${((perfProfileEnd - perfProfileStart)/1000) % 60} seconds`;
 
 
-    mapDiffCheck();
+    await mapDiffCheck();
 
     //  debuglog(perfExecutionTime);
 
