@@ -16,6 +16,7 @@ export interface IMap {
 }
 
 export interface IMapSync {
+	resyncMaps: any;
 	badArchiveList?: string[];
 	localMissionList?: IMap;
 	mapDiffs: IMapSyncConflicts;

@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { IAppContext } from '../types';
+import { IAppContext, IMapSync } from '../types';
 import { AppContext, defaults } from '../contexts/AppContext';
+
+import { MapContext } from '../contexts/MapContext';
 
 export default function SettingsPage() {
 	const appContext: IAppContext = useContext<any>(AppContext);
 	console.log(appContext);
+
+	const mapContext: IMapSync = useContext<any>(MapContext);
 
 	const { register, handleSubmit, reset, errors } = useForm<any>({
 		defaultValues: { ...defaults }
@@ -17,10 +21,12 @@ export default function SettingsPage() {
 			gamePath: cfg.gamePath,
 			gameArgs: cfg.gameArgs
 		});
+		mapContext.resyncMaps();
 	};
 	const resetToDefaults = () => {
 		reset({ ...defaults });
 		appContext.resetData();
+		mapContext.resyncMaps();
 	};
 
 	return (

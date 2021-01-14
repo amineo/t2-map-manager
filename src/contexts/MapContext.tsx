@@ -33,9 +33,20 @@ const MapProvider: React.FC = ({ children }) => {
 		[ runMapCheck ]
 	);
 
+	const resyncMaps = async () => {
+		try {
+			const m = await MapCheck(appContext.config.gamePath);
+			setMaps(m);
+			console.log('resync maps');
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<Provider
 			value={{
+				resyncMaps,
 				...maps
 			}}
 		>
