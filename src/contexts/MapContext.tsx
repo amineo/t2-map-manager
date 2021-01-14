@@ -35,6 +35,7 @@ const MapProvider: React.FC = ({ children }) => {
 
 	const resyncMaps = async () => {
 		try {
+			setMaps({ isLoading: true });
 			const m = await MapCheck(appContext.config.gamePath);
 			setMaps(m);
 			console.log('resync maps');
