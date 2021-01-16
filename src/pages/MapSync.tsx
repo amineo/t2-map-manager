@@ -2,6 +2,7 @@ import React, { useContext}  from "react";
 
 import {IMapSync} from "../types";
 
+import Loading from '../components/Loading';
 import SyncStatus from "../components/SyncStatus";
 import SyncMapList from "../components/SyncMapList";
 import LocalMapList from "../components/LocalMapList";
@@ -23,11 +24,11 @@ export default function MapSyncPage (){
   return (
 
     <main
-      className="flex-1 relative z-0 overflow-y-auto focus:outline-none"
+      className={`flex-1 relative z-0 overflow-y-auto focus:outline-none ${mapContext.isLoading ? 'bg-gray-900': ''}`}
       tabIndex={-1}
     >
       { mapContext.isLoading ?
-        <div>Loading</div>
+        <Loading />
       : <>
         <button onClick={() => resync() }>Reload</button>
         <SyncStatus {...mapContext.mapDiffs} />
