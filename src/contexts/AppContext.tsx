@@ -1,6 +1,8 @@
 import React, { createContext, useState } from 'react';
 const Store = require('electron-store');
 
+
+// Default config options
 export const defaults = {
 	config: {
 		gamePath: 'C:/Dynamix/Tribes2',
@@ -9,10 +11,17 @@ export const defaults = {
 };
 
 const _Store = new Store(defaults);
+// A little safety net for if some reason the default config store does not exist
+// or if it was deleted manually in %APPDATA%; reset using default config options above
+if (!_Store.get("config")) {
+  _Store.reset("config");
+  _Store.set(defaults);
+}
+
+// Setup AppContext
 const AppContext = createContext({});
 const { Provider } = AppContext;
-//reset to defaults: _Store.reset('config')
-//_Store.reset('config');
+
 const AppProvider: React.FC = ({ children }) => {
 	// Need to set config as state here so appContext refreshes
 	const [ config, setConfig ] = useState({ config: _Store.get('config') });
@@ -72,5 +81,3 @@ const AppProvider: React.FC = ({ children }) => {
 };
 
 export { AppContext, AppProvider };
-
-//https://www.npmjs.com/package/electron-store
