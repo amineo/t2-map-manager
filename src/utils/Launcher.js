@@ -13,7 +13,7 @@ export async function LaunchGame(config) {
   console.log('launchConfig', config);
   // path: "C:/Dynamix/Tribes2/GameData/SierraUp.exe"
   // cwd: C:/Dynamix/Tribes2/GameData
-
+  // https://stackoverflow.com/questions/57054359/run-cmd-exe-and-make-some-command-with-electron-js
 
   let gameExe = '/SierraUp.exe'
   let gameDataDIR = `${config.gamePath}/GameData`
