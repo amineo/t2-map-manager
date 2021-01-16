@@ -16,9 +16,6 @@ import { MapContext } from '../contexts/MapContext';
 
 export default function MapSyncPage (){
   const mapContext:IMapSync = useContext<any>(MapContext);
-
-  const resync = () => mapContext.resyncMaps()
-
   console.log(mapContext);
 
   return (
@@ -30,7 +27,6 @@ export default function MapSyncPage (){
       { mapContext.isLoading ?
         <Loading />
       : <>
-        <button onClick={() => resync() }>Reload</button>
         <SyncStatus {...mapContext.mapDiffs} />
         <SyncMapList {...mapContext.mapDiffs} />
         <LocalMapList localMissionList={mapContext.localMissionList}/>

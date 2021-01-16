@@ -1,13 +1,30 @@
-import React from "react";
+import React, {useContext} from "react";
 
-import {IMapSyncConflicts} from "../types";
+import {IMapSyncConflicts, IMapSync} from "../types";
+import { MapContext } from '../contexts/MapContext';
 
 export default function SyncStatus({conflicts, archives}:IMapSyncConflicts) {
+  const mapContext:IMapSync = useContext<any>(MapContext);
+
+  const resync = () => mapContext.resyncMaps()
+
   return (
   <div className="px-4 mt-6 sm:px-6 lg:px-8">
-    <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
-      Sync Status
-    </h2>
+
+    <div className="flex items-center justify-between">
+      <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">
+        Sync Status
+      </h2>
+
+      <button onClick={() => resync() }
+       className="inline-flex items-center px-3 py-2 border border-gray-300  shadow-sm text-xs leading-4 font-medium rounded  text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Re-Sync
+        <svg className="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+        </svg>
+      </button>
+    </div>
+
     <ul className="grid grid-cols-1 gap-3 sm:gap-6 sm:grid-cols-4 xl:grid-cols-4 mt-3">
       <li className="relative col-span-1 flex shadow-sm rounded-md">
         <div className="flex-shrink-0 flex items-center justify-center w-16 bg-pink-600 text-white text-lg font-medium rounded-l-md">
